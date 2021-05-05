@@ -1,5 +1,8 @@
 import 'package:best_flutter_ui_templates/app_theme.dart';
+import 'package:best_flutter_ui_templates/model/labo_model.dart';
+import 'package:best_flutter_ui_templates/provider/my_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'model/homelist.dart';
 
 class MyHomePage extends StatefulWidget {
@@ -34,6 +37,10 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
+    
+    MyProvider myProvider=Provider.of<MyProvider>(context);
+    myProvider.getListLaboFromFirebase();
+    List<LaboModel> listLabo=myProvider.listLabo;
     return Scaffold(
       backgroundColor: AppTheme.white,
       body: FutureBuilder<bool>(

@@ -2,9 +2,13 @@ import 'dart:ui';
 import 'package:best_flutter_ui_templates/hotel_booking/calendar_popup_view.dart';
 import 'package:best_flutter_ui_templates/hotel_booking/hotel_list_view.dart';
 import 'package:best_flutter_ui_templates/hotel_booking/model/hotel_list_data.dart';
+import 'package:best_flutter_ui_templates/model/labo_model.dart';
+import 'package:best_flutter_ui_templates/provider/my_provider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 import 'filters_screen.dart';
 import 'hotel_app_theme.dart';
 
@@ -42,6 +46,13 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
 
   @override
   Widget build(BuildContext context) {
+        MyProvider myProvider=Provider.of<MyProvider>(context);
+        myProvider.getListLaboFromFirebase();
+        List<LaboModel> laboData=myProvider.listLabo;
+
+        CollectionReference labo= FirebaseFirestore.instance.collection('labo');
+int index=0;
+
     return Theme(
       data: HotelAppTheme.buildLightTheme(),
       child: Container(
@@ -89,12 +100,12 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           color:
                               HotelAppTheme.buildLightTheme().backgroundColor,
                           child: ListView.builder(
-                            itemCount: hotelList.length,
+                            itemCount: laboData.length,
                             padding: const EdgeInsets.only(top: 8),
                             scrollDirection: Axis.vertical,
                             itemBuilder: (BuildContext context, int index) {
                               final int count =
-                                  hotelList.length > 10 ? 10 : hotelList.length;
+                                  laboData.length > 10 ? 10 : laboData.length;
                               final Animation<double> animation =
                                   Tween<double>(begin: 0.0, end: 1.0).animate(
                                       CurvedAnimation(
@@ -105,10 +116,77 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                               animationController.forward();
                               return HotelListView(
                                 callback: () {},
-                                hotelData: hotelList[index],
+                                //laboData: laboData,
+                                laboModel: laboData[index],
                                 animation: animation,
                                 animationController: animationController,
-                              );
+                              );Container(
+      decoration: BoxDecoration(
+        color: HotelAppTheme.buildLightTheme().backgroundColor,
+        boxShadow: <BoxShadow>[
+          BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              offset: const Offset(0, -2),
+              blurRadius: 8.0),
+        ],
+      ),
+      child: Column(
+        children: <Widget>[
+          Container(
+            height: MediaQuery.of(context).size.height - 156 - 50,
+            child: FutureBuilder<bool>(
+              future: getData(),
+              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                if (!snapshot.hasData) {
+                  return const SizedBox();
+                } else {
+                  return StreamBuilder<QuerySnapshot>(
+          stream:labo.snapshots() ,
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+              if( (snapshot.hasError)) {
+                  return Container();
+                }
+            
+              if(!snapshot.hasData){
+                return Container();
+              }
+              if(snapshot.hasData){
+                      final List<DocumentSnapshot> documents=snapshot.data.docs;
+                return ListView(
+                  
+                  children:documents.map((doc) {
+                    index++;
+                    final int count =
+                          hotelList.length > 10 ? 10 : hotelList.length;
+                      final Animation<double> animation =
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                  parent: animationController,
+                                  curve: Interval((1 / count) * index, 1.0,
+                                      curve: Curves.fastOutSlowIn)));
+                                animationController.forward();
+                              return  HotelListView(
+                                onTapDelete: (){
+                                  FocusScope.of(context).requestFocus(FocusNode());
+                                               myProvider.deleteItem(doc.id);
+                                               myProvider.getListLaboFromFirebase(); 
+                                      },
+                                      callback: () {},
+                                    // hotelData: hotelList[index],
+                                      animation: animation,
+                                      animationController: animationController,
+                                    );
+                        } ).toList() ,
+               ); }
+          },
+        );
+                }
+              },
+            ),
+          )
+        ],
+      ),
+    );
                             },
                           ),
                         ),
@@ -124,7 +202,10 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     );
   }
 
+ /* 
   Widget getListUI() {
+    CollectionReference labo= FirebaseFirestore.instance.collection('labo');
+int index=0;
     return Container(
       decoration: BoxDecoration(
         color: HotelAppTheme.buildLightTheme().backgroundColor,
@@ -145,7 +226,47 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                 if (!snapshot.hasData) {
                   return const SizedBox();
                 } else {
-                  return ListView.builder(
+                  return StreamBuilder<QuerySnapshot>(
+          stream:labo.snapshots() ,
+          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
+              if( (snapshot.hasError)) {
+                  return Container();
+                }
+            
+              if(!snapshot.hasData){
+                return Container();
+              }
+              if(snapshot.hasData){
+                      final List<DocumentSnapshot> documents=snapshot.data.docs;
+                return ListView(
+                  
+                  children:documents.map((doc) {
+                    index++;
+                    final int count =
+                          hotelList.length > 10 ? 10 : hotelList.length;
+                      final Animation<double> animation =
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                              CurvedAnimation(
+                                  parent: animationController,
+                                  curve: Interval((1 / count) * index, 1.0,
+                                      curve: Curves.fastOutSlowIn)));
+                                animationController.forward();
+                              return  HotelListView(
+                                onTapDelete: ()async{
+                                  await FirebaseFirestore.instance.collection('labo')
+                                          .doc(doc.id)
+                                          .delete();                
+                                      },
+                                      callback: () {},
+                                    // hotelData: hotelList[index],
+                                      animation: animation,
+                                      animationController: animationController,
+                                    );
+                        } ).toList() ,
+               ); }
+          },
+        );
+                  /*ListView.builder(
                     itemCount: hotelList.length,
                     scrollDirection: Axis.vertical,
                     itemBuilder: (BuildContext context, int index) {
@@ -161,12 +282,13 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
 
                       return HotelListView(
                         callback: () {},
-                        hotelData: hotelList[index],
+                       // hotelData: hotelList[index],
                         animation: animation,
                         animationController: animationController,
                       );
                     },
                   );
+                  */
                 }
               },
             ),
@@ -175,7 +297,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
       ),
     );
   }
-
+*/
   Widget getHotelViewList() {
     final List<Widget> hotelListViews = <Widget>[];
     for (int i = 0; i < hotelList.length; i++) {
@@ -190,7 +312,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
       hotelListViews.add(
         HotelListView(
           callback: () {},
-          hotelData: hotelList[i],
+          //hotelData: hotelList[i],
           animation: animation,
           animationController: animationController,
         ),

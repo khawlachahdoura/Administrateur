@@ -1,20 +1,26 @@
 import 'package:best_flutter_ui_templates/hotel_booking/hotel_app_theme.dart';
+import 'package:best_flutter_ui_templates/model/labo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'model/hotel_list_data.dart';
 
 class HotelListView extends StatelessWidget {
-  const HotelListView(
+   HotelListView(
       {Key key,
-      this.hotelData,
+      this.laboData,
+      this.laboModel,
+      this.onTapDelete,
       this.animationController,
       this.animation,
       this.callback})
       : super(key: key);
 
   final VoidCallback callback;
-  final HotelListData hotelData;
+  final Function onTapDelete;
+  //final HotelListData hotelData;
+  final List<LaboModel> laboData;
+  final LaboModel laboModel;
   final AnimationController animationController;
   final Animation<dynamic> animation;
 
@@ -55,10 +61,15 @@ class HotelListView extends StatelessWidget {
                           children: <Widget>[
                             AspectRatio(
                               aspectRatio: 2,
-                              child: Image.asset(
-                                hotelData.imagePath,
-                                fit: BoxFit.cover,
-                              ),
+                              child:Container(
+                              
+                                decoration: new BoxDecoration(
+                                  image: new DecorationImage(
+                                    image: new NetworkImage(
+                                        laboModel.image),
+                                    fit: BoxFit.cover,
+                                  ),
+                                )),
                             ),
                             Container(
                               color: HotelAppTheme.buildLightTheme()
@@ -79,7 +90,7 @@ class HotelListView extends StatelessWidget {
                                               CrossAxisAlignment.start,
                                           children: <Widget>[
                                             Text(
-                                              hotelData.titleTxt,
+                                              laboModel.name,
                                               textAlign: TextAlign.left,
                                               style: TextStyle(
                                                 fontWeight: FontWeight.w600,
@@ -92,8 +103,8 @@ class HotelListView extends StatelessWidget {
                                               mainAxisAlignment:
                                                   MainAxisAlignment.start,
                                               children: <Widget>[
-                                                Text(
-                                                  hotelData.subTxt,
+                                                Text('${laboModel.rating} ratings',
+                                                  //hotelData.subTxt,
                                                   style: TextStyle(
                                                       fontSize: 14,
                                                       color: Colors.grey
@@ -110,8 +121,8 @@ class HotelListView extends StatelessWidget {
                                                       .primaryColor,
                                                 ),
                                                 Expanded(
-                                                  child: Text(
-                                                    '${hotelData.dist.toStringAsFixed(1)} km to city',
+                                                  child: Text('',
+                                                   // '${hotelData.dist.toStringAsFixed(1)} km to city',
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                     style: TextStyle(
@@ -145,10 +156,36 @@ class HotelListView extends StatelessWidget {
                               ),
                               onTap: () {},
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Icon(
-                                  Icons.delete,
-                                  color: Colors.red,
+                                padding: const EdgeInsets.all(3.0),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: HotelAppTheme.buildLightTheme().primaryColor,
+                                      borderRadius: const BorderRadius.all(
+                                        Radius.circular(20.0),
+                                      ),
+                                      boxShadow: <BoxShadow>[
+                                        BoxShadow(
+                                            color: Colors.grey.withOpacity(0.4),
+                                            offset: const Offset(0, 2),
+                                            blurRadius: 8.0),
+                                      ],
+                                    ),
+                                  child: Material(
+                                color: Colors.transparent,
+                                child: InkWell(
+                                  borderRadius: const BorderRadius.all(
+                                    Radius.circular(32.0),
+                                  ),
+                                  onTap: onTapDelete,
+                                  
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(10.0),
+                                    child: Icon(Icons.delete,
+                                        size: 20,
+                                        color: HotelAppTheme.buildLightTheme().backgroundColor),
+                                  ),
+                                ),
+                              ),
                                 ),
                               ),
                             ),
