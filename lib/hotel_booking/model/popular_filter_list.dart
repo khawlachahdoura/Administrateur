@@ -9,25 +9,18 @@ class PopularFilterListData {
 
   static List<PopularFilterListData> popularFList = <PopularFilterListData>[
     PopularFilterListData(
-      titleTxt: 'Free Breakfast',
+      titleTxt: 'Test PCR Covid-19',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Free Parking',
+      titleTxt: 'Antigen test',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Pool',
-      isSelected: true,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Pet Friendly',
+      titleTxt: 'Serological test',
       isSelected: false,
     ),
-    PopularFilterListData(
-      titleTxt: 'Free wifi',
-      isSelected: false,
-    ),
+
   ];
 
   static List<PopularFilterListData> accomodationList = [
@@ -36,23 +29,31 @@ class PopularFilterListData {
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Apartment',
+      titleTxt: 'Monday',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Home',
-      isSelected: true,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Villa',
+      titleTxt: 'Tuesday',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Hotel',
+      titleTxt: 'Wednesday',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Resort',
+      titleTxt: 'Thursday',
+      isSelected: false,
+    ),
+    PopularFilterListData(
+      titleTxt: 'Friday',
+      isSelected: false,
+    ),
+    PopularFilterListData(
+      titleTxt: 'Saturday',
+      isSelected: false,
+    ),
+    PopularFilterListData(
+      titleTxt: 'Sunday',
       isSelected: false,
     ),
   ];

@@ -1,5 +1,7 @@
+import 'package:best_flutter_ui_templates/conseils/my_diary_screen.dart';
 import 'package:best_flutter_ui_templates/fitness_app/models/tabIcon_data.dart';
 import 'package:best_flutter_ui_templates/fitness_app/traning/training_screen.dart';
+import 'package:best_flutter_ui_templates/notification/notification_screen_home.dart';
 import 'package:flutter/material.dart';
 import 'bottom_navigation_view/bottom_bar_view.dart';
 import 'fintness_app_theme.dart';
@@ -79,7 +81,7 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
           tabIconsList: tabIconsList,
           addClick: () {},
           changeIndex: (int index) {
-            if (index == 0 || index == 2) {
+            if (index == 0  ) {
               animationController.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -89,7 +91,29 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                       MyDiaryScreen(animationController: animationController);
                 });
               });
-            } else if (index == 1 || index == 3) {
+            } else if(index == 1){
+              animationController.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody =
+                      NotificationScreen(animationController: animationController);
+                });
+              });
+            }
+            else if (index == 2 ) {
+              animationController.reverse().then<dynamic>((data) {
+                if (!mounted) {
+                  return;
+                }
+                setState(() {
+                  tabBody =
+                      MyConseilsScreen(animationController: animationController);
+                });
+              });
+            }
+            else if (index == 3 ) {
               animationController.reverse().then<dynamic>((data) {
                 if (!mounted) {
                   return;
@@ -99,6 +123,11 @@ class _FitnessAppHomeScreenState extends State<FitnessAppHomeScreen>
                       TrainingScreen(animationController: animationController);
                 });
               });
+            }
+
+
+            else if ( index == 3){
+
             }
           },
         ),

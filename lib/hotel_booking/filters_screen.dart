@@ -17,7 +17,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       PopularFilterListData.accomodationList;
 
   RangeValues _values = const RangeValues(100, 600);
-  double distValue = 50.0;
+  double distValue = 10.0;
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +32,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
               child: SingleChildScrollView(
                 child: Column(
                   children: <Widget>[
+                    nameLabo(),
+                    const Divider(
+                      height: 1,
+                    ),
                     priceBarFilter(),
                     const Divider(
                       height: 1,
@@ -78,7 +82,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
                     },
                     child: Center(
                       child: Text(
-                        'Apply',
+                        'Add',
                         style: TextStyle(
                             fontWeight: FontWeight.w500,
                             fontSize: 18,
@@ -95,6 +99,27 @@ class _FiltersScreenState extends State<FiltersScreen> {
     );
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Widget allAccommodationUI() {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
@@ -104,7 +129,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           child: Text(
-            'Type of Accommodation',
+            'Workdays',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -124,6 +149,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
       ],
     );
   }
+
+
+
+
+
 
   List<Widget> getAccomodationListUI() {
     final List<Widget> noList = <Widget>[];
@@ -175,6 +205,8 @@ class _FiltersScreenState extends State<FiltersScreen> {
     return noList;
   }
 
+
+
   void checkAppPosition(int index) {
     if (index == 0) {
       if (accomodationListData[0].isSelected) {
@@ -207,6 +239,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
       }
     }
   }
+
+
+
 
   Widget distanceViewUI() {
     return Column(
@@ -247,7 +282,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           child: Text(
-            'Popular filters',
+            'Type de test',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -267,6 +302,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
       ],
     );
   }
+
 
   List<Widget> getPList() {
     final List<Widget> noList = <Widget>[];
@@ -342,7 +378,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Price (for 1 night)',
+            'Price of test',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -402,7 +438,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
             Expanded(
               child: Center(
                 child: Text(
-                  'Filters',
+                  'Add Labo',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
@@ -416,6 +452,57 @@ class _FiltersScreenState extends State<FiltersScreen> {
             )
           ],
         ),
+      ),
+    );
+  }
+
+
+
+
+
+
+
+  Widget nameLabo() {
+    return Padding(
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+      child: Row(
+        children: <Widget>[
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.black12,
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(38.0),
+                  ),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                        color: Colors.grey.withOpacity(0.2),
+                        offset: const Offset(0, 2),
+                        blurRadius: 8.0),
+                  ],
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 4, bottom: 4),
+                  child: TextField(
+                    onChanged: (String txt) {},
+                    style: const TextStyle(
+                      fontSize: 18,
+                    ),
+                    cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Enter lab name',
+                    ),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+        ],
       ),
     );
   }

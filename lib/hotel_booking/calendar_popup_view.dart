@@ -14,11 +14,11 @@ class CalendarPopupView extends StatefulWidget {
       this.onApplyClick,
       this.onCancelClick,
       this.barrierDismissible = true,
-      this.minimumDate,
+
       this.maximumDate})
       : super(key: key);
 
-  final DateTime minimumDate;
+
   final DateTime maximumDate;
   final bool barrierDismissible;
   final DateTime initialStartDate;
@@ -175,7 +175,7 @@ class _CalendarPopupViewState extends State<CalendarPopupView>
                               height: 1,
                             ),
                             CustomCalendarView(
-                              minimumDate: widget.minimumDate,
+                              minimumDate: widget.maximumDate,
                               maximumDate: widget.maximumDate,
                               initialEndDate: widget.initialEndDate,
                               initialStartDate: widget.initialStartDate,

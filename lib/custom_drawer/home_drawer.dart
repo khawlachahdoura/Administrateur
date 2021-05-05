@@ -38,11 +38,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
         labelName: 'FeedBack',
         icon: Icon(Icons.help),
       ),
-      DrawerList(
-        index: DrawerIndex.Invite,
-        labelName: 'Invite Friend',
-        icon: Icon(Icons.group),
-      ),
+
       DrawerList(
         index: DrawerIndex.Share,
         labelName: 'Rate the app',
@@ -52,6 +48,11 @@ class _HomeDrawerState extends State<HomeDrawer> {
         index: DrawerIndex.About,
         labelName: 'About Us',
         icon: Icon(Icons.info),
+      ),
+      DrawerList(
+        index: DrawerIndex.About,
+        labelName: 'Settings',
+        icon: Icon(Icons.settings),
       ),
     ];
   }
@@ -94,7 +95,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                             ),
                             child: ClipRRect(
                               borderRadius: const BorderRadius.all(Radius.circular(60.0)),
-                              child: Image.asset('assets/images/userImage.png'),
+                              child: Image.asset('assets/images/user.png'),
                             ),
                           ),
                         ),
@@ -104,7 +105,7 @@ class _HomeDrawerState extends State<HomeDrawer> {
                   Padding(
                     padding: const EdgeInsets.only(top: 8, left: 4),
                     child: Text(
-                      'Chris Hemsworth',
+                      'Adminstrateur',
                       style: TextStyle(
                         fontWeight: FontWeight.w600,
                         color: AppTheme.grey,

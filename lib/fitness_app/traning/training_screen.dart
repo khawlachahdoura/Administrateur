@@ -1,10 +1,9 @@
 import 'package:best_flutter_ui_templates/fitness_app/ui_view/area_list_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/running_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/title_view.dart';
-import 'package:best_flutter_ui_templates/fitness_app/ui_view/workout_view.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
+ import 'package:flutter/material.dart';
 
 import '../fintness_app_theme.dart';
+import 'filters_screenPeople.dart';
 
 class TrainingScreen extends StatefulWidget {
   const TrainingScreen({Key key, this.animationController}) : super(key: key);
@@ -58,47 +57,58 @@ class _TrainingScreenState extends State<TrainingScreen>
   void addAllListData() {
     const int count = 5;
 
-    listViews.add(
-      TitleView(
-        titleTxt: 'Your program',
-        subTxt: 'Details',
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 0, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
+
 
     listViews.add(
-      WorkoutView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 2, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
-    listViews.add(
-      RunningView(
-        animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
-            parent: widget.animationController,
-            curve:
-                Interval((1 / count) * 3, 1.0, curve: Curves.fastOutSlowIn))),
-        animationController: widget.animationController,
-      ),
-    );
+      /*TitleView(
+        titleTxt: 'List of people confined',
+        subTxt: 'Filter',
 
-    listViews.add(
-      TitleView(
-        titleTxt: 'Area of focus',
-        subTxt: 'more',
         animation: Tween<double>(begin: 0.0, end: 1.0).animate(CurvedAnimation(
             parent: widget.animationController,
             curve:
                 Interval((1 / count) * 4, 1.0, curve: Curves.fastOutSlowIn))),
         animationController: widget.animationController,
-      ),
+      ),*/
+
+      RichText(
+          text: TextSpan(
+            text: '  List of confined people        ',
+            style: TextStyle(fontSize: 23, color: Colors.black),
+
+            children: <TextSpan>[
+
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: "Filter ",
+                    style: TextStyle(
+
+                      fontWeight: FontWeight.normal,
+                      fontSize: 20,
+
+                    ),
+                    recognizer: TapGestureRecognizer()
+                      ..onTap = () {
+                        FocusScope.of(context).requestFocus(FocusNode());
+                        Navigator.push<dynamic>(
+                          context,
+                          MaterialPageRoute<dynamic>(
+                              builder: (BuildContext context) => FiltersScreenPeople(),
+                              fullscreenDialog: true),
+                        );
+                      },
+                  ),
+                  WidgetSpan(
+                    child: Icon(Icons.short_text, size: 30),
+                  ),
+
+                ],
+
+
+              )
+            ],
+          )),
     );
 
     listViews.add(
@@ -207,7 +217,7 @@ class _TrainingScreenState extends State<TrainingScreen>
                               child: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Text(
-                                  'Training',
+                                  'Confined people ',
                                   textAlign: TextAlign.left,
                                   style: TextStyle(
                                     fontFamily: FitnessAppTheme.fontName,
@@ -219,67 +229,8 @@ class _TrainingScreenState extends State<TrainingScreen>
                                 ),
                               ),
                             ),
-                            SizedBox(
-                              height: 38,
-                              width: 38,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(32.0)),
-                                onTap: () {},
-                                child: Center(
-                                  child: Icon(
-                                    Icons.keyboard_arrow_left,
-                                    color: FitnessAppTheme.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(
-                                left: 8,
-                                right: 8,
-                              ),
-                              child: Row(
-                                children: <Widget>[
-                                  Padding(
-                                    padding: const EdgeInsets.only(right: 8),
-                                    child: Icon(
-                                      Icons.calendar_today,
-                                      color: FitnessAppTheme.grey,
-                                      size: 18,
-                                    ),
-                                  ),
-                                  Text(
-                                    '15 May',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                      fontFamily: FitnessAppTheme.fontName,
-                                      fontWeight: FontWeight.normal,
-                                      fontSize: 18,
-                                      letterSpacing: -0.2,
-                                      color: FitnessAppTheme.darkerText,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            SizedBox(
-                              height: 38,
-                              width: 38,
-                              child: InkWell(
-                                highlightColor: Colors.transparent,
-                                borderRadius: const BorderRadius.all(
-                                    Radius.circular(32.0)),
-                                onTap: () {},
-                                child: Center(
-                                  child: Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: FitnessAppTheme.grey,
-                                  ),
-                                ),
-                              ),
-                            ),
+
+
                           ],
                         ),
                       )
@@ -294,3 +245,5 @@ class _TrainingScreenState extends State<TrainingScreen>
     );
   }
 }
+
+

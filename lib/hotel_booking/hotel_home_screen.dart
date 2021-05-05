@@ -286,29 +286,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                     child: Padding(
                       padding: const EdgeInsets.only(
                           left: 8, right: 8, top: 4, bottom: 4),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            'Number of Rooms',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w100,
-                                fontSize: 16,
-                                color: Colors.grey.withOpacity(0.8)),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            '1 Room - 2 Adults',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w100,
-                              fontSize: 16,
-                            ),
-                          ),
-                        ],
-                      ),
+
                     ),
                   ),
                 ),
@@ -352,7 +330,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                     cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
                     decoration: InputDecoration(
                       border: InputBorder.none,
-                      hintText: 'London...',
+                      hintText: 'Search...',
                     ),
                   ),
                 ),
@@ -422,18 +400,9 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                 const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 4),
             child: Row(
               children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      '530 hotels found',
-                      style: TextStyle(
-                        fontWeight: FontWeight.w100,
-                        fontSize: 16,
-                      ),
-                    ),
-                  ),
-                ),
+
+
+
                 Material(
                   color: Colors.transparent,
                   child: InkWell(
@@ -453,12 +422,13 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                             fullscreenDialog: true),
                       );
                     },
+
                     child: Padding(
                       padding: const EdgeInsets.only(left: 8),
                       child: Row(
                         children: <Widget>[
                           Text(
-                            'Filter',
+                            'Add labo',
                             style: TextStyle(
                               fontWeight: FontWeight.w100,
                               fontSize: 16,
@@ -466,13 +436,15 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                           ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
-                            child: Icon(Icons.sort,
+                            child: Icon(Icons.add,
                                 color: HotelAppTheme.buildLightTheme()
                                     .primaryColor),
                           ),
                         ],
                       ),
                     ),
+
+
                   ),
                 ),
               ],
@@ -491,12 +463,34 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
     );
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   void showDemoDialog({BuildContext context}) {
     showDialog<dynamic>(
       context: context,
       builder: (BuildContext context) => CalendarPopupView(
         barrierDismissible: true,
-        minimumDate: DateTime.now(),
+
         //  maximumDate: DateTime(DateTime.now().year, DateTime.now().month, DateTime.now().day + 10),
         initialEndDate: endDate,
         initialStartDate: startDate,
@@ -552,7 +546,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
             Expanded(
               child: Center(
                 child: Text(
-                  'Explore',
+                  'Gérer Labo',
                   style: TextStyle(
                     fontWeight: FontWeight.w600,
                     fontSize: 22,
@@ -567,19 +561,7 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  Material(
-                    color: Colors.transparent,
-                    child: InkWell(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(32.0),
-                      ),
-                      onTap: () {},
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Icon(Icons.favorite_border),
-                      ),
-                    ),
-                  ),
+
                   Material(
                     color: Colors.transparent,
                     child: InkWell(

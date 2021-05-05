@@ -1,6 +1,6 @@
+import 'package:best_flutter_ui_templates/fitness_app/fintness_app_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../fintness_app_theme.dart';
 
 class AreaListView extends StatefulWidget {
   const AreaListView(
@@ -43,101 +43,110 @@ class _AreaListViewState extends State<AreaListView>
       builder: (BuildContext context, Widget child) {
         return FadeTransition(
           opacity: widget.mainScreenAnimation,
-          child: Transform(
-            transform: Matrix4.translationValues(
-                0.0, 30 * (1.0 - widget.mainScreenAnimation.value), 0.0),
-            child: AspectRatio(
-              aspectRatio: 1.0,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 8.0, right: 8),
-                child: GridView(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 16, bottom: 16),
-                  physics: const BouncingScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  children: <Widget>[
-
-                    Center(
-                      child: Card(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
+          child: Padding(
+            padding: const EdgeInsets.only(
+                left: 24, right: 24, top: 16, bottom: 18),
+            child: Container(
+              decoration: BoxDecoration(
+                color: FitnessAppTheme.white,
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(8.0),
+                    bottomLeft: Radius.circular(8.0),
+                    bottomRight: Radius.circular(8.0),
+                    topRight: Radius.circular(68.0)),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: FitnessAppTheme.grey.withOpacity(0.2),
+                      offset: Offset(1.1, 1.1),
+                      blurRadius: 10.0),
+                ],
+              ),
+              child: Column(
+                children: <Widget>[
+                  Padding(
+                    padding:
+                    const EdgeInsets.only(top: 16, left: 16, right: 24),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 4, bottom: 8, top: 16),
+                          child: Text(
+                            'Text content',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: FitnessAppTheme.fontName,
+                                fontWeight: FontWeight.w500,
+                                fontSize: 30,
+                                letterSpacing: -0.1,
+                                color: FitnessAppTheme.darkText),
+                          ),
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: <Widget>[
-                            const ListTile(
-                              leading: Icon(Icons.album,
-                                  color: Colors.green),
-
-                              title: Text('John 2'),
-                              subtitle: Text('Monastir '
-                                  '02/04/2021'),
-
-                            ),
                             Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
                               children: <Widget>[
-                                TextButton(
-                                  child: const Icon(Icons.dehaze),
-                                  onPressed: () {/* ... */},
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 4, bottom: 3),
+
                                 ),
 
                               ],
                             ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: <Widget>[
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(
+                                      Icons.access_time,
+                                      color: FitnessAppTheme.grey
+                                          .withOpacity(0.5),
+                                      size: 16,
+                                    ),
+                                    Padding(
+                                      padding:
+                                      const EdgeInsets.only(left: 4.0),
+                                      child: Text(
+                                        '10 days ago',
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          fontFamily:
+                                          FitnessAppTheme.fontName,
+                                          fontWeight: FontWeight.w500,
+                                          fontSize: 14,
+                                          letterSpacing: 0.0,
+                                          color: FitnessAppTheme.grey
+                                              .withOpacity(0.5),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+
+                              ],
+                            )
                           ],
-                        ),
-                      ),
-
-                      /* return AreaView(
-
-                        animation: animation,
-
-                        animationController: animationController,
-                      );*/
-
-
+                        )
+                      ],
                     ),
-
-                       Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              const ListTile(
-                                leading: Icon(Icons.album,
-                                    color: Colors.red),
-
-                                title: Text('John'),
-                                subtitle: Text('Monastir 02/04/2021'),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  TextButton(
-                                    child: const Icon(Icons.dehaze),
-                                    onPressed: () {/* ... */},
-                                  ),
-
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-
-                     /* return AreaView(
-
-                        animation: animation,
-
-                        animationController: animationController,
-                      );*/
-
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.only(
+                        left: 24, right: 24, top: 8, bottom: 8),
 
                   ),
-                  ],
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: 2,
-                    mainAxisSpacing: 24.0,
-                    crossAxisSpacing: 24.0,
-                    childAspectRatio: 1.0,
-                  ),
-                ),
+
+                ],
               ),
             ),
           ),

@@ -7,21 +7,6 @@ class PopularFilterListData {
   String titleTxt;
   bool isSelected;
 
-  static List<PopularFilterListData> popularFList = <PopularFilterListData>[
-    PopularFilterListData(
-      titleTxt: 'Test PCR Covid-19',
-      isSelected: false,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Antigen test',
-      isSelected: false,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Serological test',
-      isSelected: false,
-    ),
-
-  ];
 
   static List<PopularFilterListData> accomodationList = [
     PopularFilterListData(
@@ -29,32 +14,21 @@ class PopularFilterListData {
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Monday',
+      titleTxt: 'Tunis',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Tuesday',
+      titleTxt: 'Monastir',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Wednesday',
+      titleTxt: 'Sousse',
       isSelected: false,
     ),
     PopularFilterListData(
-      titleTxt: 'Thursday',
+      titleTxt: 'Mahdia',
       isSelected: false,
     ),
-    PopularFilterListData(
-      titleTxt: 'Friday',
-      isSelected: false,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Saturday',
-      isSelected: false,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Sunday',
-      isSelected: false,
-    ),
+
   ];
 }

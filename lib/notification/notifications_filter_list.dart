@@ -1,5 +1,5 @@
-class PopularFilterListData {
-  PopularFilterListData({
+class NotificationFilterListData {
+  NotificationFilterListData({
     this.titleTxt = '',
     this.isSelected = false,
   });
@@ -8,27 +8,20 @@ class PopularFilterListData {
   bool isSelected;
 
 
-  static List<PopularFilterListData> accomodationList = [
-    PopularFilterListData(
+  static List<NotificationFilterListData> accomodationList = [
+    NotificationFilterListData(
       titleTxt: 'All',
       isSelected: false,
     ),
-    PopularFilterListData(
-      titleTxt: 'Tunis',
+    NotificationFilterListData(
+      titleTxt: 'Read',
       isSelected: false,
     ),
-    PopularFilterListData(
-      titleTxt: 'Monastir',
+    NotificationFilterListData(
+      titleTxt: 'No Read',
       isSelected: false,
     ),
-    PopularFilterListData(
-      titleTxt: 'Sousse',
-      isSelected: false,
-    ),
-    PopularFilterListData(
-      titleTxt: 'Mahdia',
-      isSelected: false,
-    ),
+
 
   ];
 }

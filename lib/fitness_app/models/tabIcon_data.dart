@@ -25,8 +25,8 @@ class TabIconData {
       animationController: null,
     ),
     TabIconData(
-      imagePath: 'assets/fitness_app/tab_2.png',
-      selectedImagePath: 'assets/fitness_app/tab_2s.png',
+      imagePath: 'assets/fitness_app/notification_1.png',
+      selectedImagePath: 'assets/fitness_app/notification_1s.png',
       index: 1,
       isSelected: false,
       animationController: null,

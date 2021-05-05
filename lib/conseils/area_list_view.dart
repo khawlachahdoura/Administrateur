@@ -1,6 +1,7 @@
+import 'package:best_flutter_ui_templates/fitness_app/fintness_app_theme.dart';
 import 'package:flutter/material.dart';
 
-import '../fintness_app_theme.dart';
+
 
 class AreaListView extends StatefulWidget {
   const AreaListView(
@@ -55,82 +56,26 @@ class _AreaListViewState extends State<AreaListView>
                       left: 16, right: 16, top: 16, bottom: 16),
                   physics: const BouncingScrollPhysics(),
                   scrollDirection: Axis.vertical,
-                  children: <Widget>[
-
-                    Center(
-                      child: Card(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            const ListTile(
-                              leading: Icon(Icons.album,
-                                  color: Colors.green),
-
-                              title: Text('John 2'),
-                              subtitle: Text('Monastir '
-                                  '02/04/2021'),
-
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: <Widget>[
-                                TextButton(
-                                  child: const Icon(Icons.dehaze),
-                                  onPressed: () {/* ... */},
-                                ),
-
-                              ],
-                            ),
-                          ],
+                  children: List<Widget>.generate(
+                    areaListData.length,
+                    (int index) {
+                      final int count = areaListData.length;
+                      final Animation<double> animation =
+                          Tween<double>(begin: 0.0, end: 1.0).animate(
+                        CurvedAnimation(
+                          parent: animationController,
+                          curve: Interval((1 / count) * index, 1.0,
+                              curve: Curves.fastOutSlowIn),
                         ),
-                      ),
-
-                      /* return AreaView(
-
+                      );
+                      animationController.forward();
+                      return AreaView(
+                        imagepath: areaListData[index],
                         animation: animation,
-
                         animationController: animationController,
-                      );*/
-
-
-                    ),
-
-                       Center(
-                        child: Card(
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              const ListTile(
-                                leading: Icon(Icons.album,
-                                    color: Colors.red),
-
-                                title: Text('John'),
-                                subtitle: Text('Monastir 02/04/2021'),
-                              ),
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: <Widget>[
-                                  TextButton(
-                                    child: const Icon(Icons.dehaze),
-                                    onPressed: () {/* ... */},
-                                  ),
-
-                                ],
-                              ),
-                            ],
-                          ),
-                        ),
-
-                     /* return AreaView(
-
-                        animation: animation,
-
-                        animationController: animationController,
-                      );*/
-
-
+                      );
+                    },
                   ),
-                  ],
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     mainAxisSpacing: 24.0,

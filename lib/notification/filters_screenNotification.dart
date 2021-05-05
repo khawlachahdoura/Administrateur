@@ -3,15 +3,17 @@ import 'package:best_flutter_ui_templates/hotel_booking/hotel_app_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class FiltersScreenPeople extends StatefulWidget {
+import 'notifications_filter_list.dart';
+
+class FiltersScreenNotification extends StatefulWidget {
   @override
-  _FiltersScreenState createState() => _FiltersScreenState();
+  _FiltersScreenNotificationState createState() => _FiltersScreenNotificationState();
 }
 
-class _FiltersScreenState extends State<FiltersScreenPeople> {
+class _FiltersScreenNotificationState extends State<FiltersScreenNotification> {
 
-  List<PopularFilterListData> accomodationListData =
-      PopularFilterListData.accomodationList;
+  List<NotificationFilterListData> accomodationListData =
+      NotificationFilterListData.accomodationList;
 
   RangeValues _values = const RangeValues(100, 600);
   double distValue = 10.0;
@@ -95,7 +97,7 @@ class _FiltersScreenState extends State<FiltersScreenPeople> {
           padding:
           const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
           child: Text(
-            'Pays',
+            '',
             textAlign: TextAlign.left,
             style: TextStyle(
                 color: Colors.grey,
@@ -123,7 +125,7 @@ class _FiltersScreenState extends State<FiltersScreenPeople> {
   List<Widget> getAccomodationListUI() {
     final List<Widget> noList = <Widget>[];
     for (int i = 0; i < accomodationListData.length; i++) {
-      final PopularFilterListData date = accomodationListData[i];
+      final NotificationFilterListData date = accomodationListData[i];
       noList.add(
         Material(
           color: Colors.transparent,
@@ -254,7 +256,7 @@ class _FiltersScreenState extends State<FiltersScreenPeople> {
       int count = 0;
       for (int i = 0; i < accomodationListData.length; i++) {
         if (i != 0) {
-          final PopularFilterListData data = accomodationListData[i];
+          final NotificationFilterListData data = accomodationListData[i];
           if (data.isSelected) {
             count += 1;
           }

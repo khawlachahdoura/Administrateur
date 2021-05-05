@@ -14,11 +14,11 @@ class HomeList {
 
   static List<HomeList> homeList = [
     HomeList(
-      imagePath: 'assets/hotel/hotel_booking.png',
+      imagePath: 'assets/hotel/labo.png',
       navigateScreen: HotelHomeScreen(),
     ),
     HomeList(
-      imagePath: 'assets/fitness_app/fitness_app.png',
+      imagePath: 'assets/hotel/confinement.png',
       navigateScreen: FitnessAppHomeScreen(),
     ),
     HomeList(
