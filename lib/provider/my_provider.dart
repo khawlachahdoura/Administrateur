@@ -14,6 +14,7 @@ LaboModel laboModel;
     ;
     querySnapshot.docs.forEach((doc) {
       laboModel= LaboModel(
+        id: doc.id,
         image: doc['image'] ,
         name: doc['name'],
        rating: doc['rating'],

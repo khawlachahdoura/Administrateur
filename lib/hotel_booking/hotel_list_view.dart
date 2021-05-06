@@ -1,9 +1,9 @@
 import 'package:best_flutter_ui_templates/hotel_booking/hotel_app_theme.dart';
 import 'package:best_flutter_ui_templates/model/labo_model.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'model/hotel_list_data.dart';
 
 class HotelListView extends StatelessWidget {
    HotelListView(
@@ -176,13 +176,18 @@ class HotelListView extends StatelessWidget {
                                   borderRadius: const BorderRadius.all(
                                     Radius.circular(32.0),
                                   ),
-                                  onTap: onTapDelete,
+                                  onTap: ()async{
+                                    await FirebaseFirestore.instance.collection('labo')
+                                        .doc(laboModel.id)
+                                        .delete();
+                                  },
                                   
                                   child: Padding(
                                     padding: const EdgeInsets.all(10.0),
                                     child: Icon(Icons.delete,
                                         size: 20,
-                                        color: HotelAppTheme.buildLightTheme().backgroundColor),
+                                        color: Colors.red
+                                        ),
                                   ),
                                 ),
                               ),
