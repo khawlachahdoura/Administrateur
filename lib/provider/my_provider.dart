@@ -18,6 +18,7 @@ LaboModel laboModel;
         image: doc['image'] ,
         name: doc['name'],
        rating: doc['rating'],
+       ville: doc['ville']
         );
         newList.add(laboModel);
      });
@@ -25,6 +26,30 @@ LaboModel laboModel;
     notifyListeners();
 
 }
+List<LaboModel> listLaboLst=[];
+LaboModel laboModelLst;
+  Future<void> getListLaboByCityFromFirebase(String city) async{
+      List<LaboModel> newList=[];
+    QuerySnapshot querySnapshot= await FirebaseFirestore.instance
+    .collection('labo')
+    .where('ville',isEqualTo:city.toLowerCase())
+    .get()
+    ;
+    querySnapshot.docs.forEach((doc) {
+      laboModelLst= LaboModel(
+        id: doc.id,
+        image: doc['image'] ,
+        name: doc['name'],
+       rating: doc['rating'],
+       ville: doc['ville']
+        );
+        newList.add(laboModelLst);
+     });
+    listLaboLst=newList;
+    notifyListeners();
+
+}
+
 
 Future<void> deleteItem(String docID) async{
   return await FirebaseFirestore.instance.collection('labo')

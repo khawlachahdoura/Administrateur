@@ -4,6 +4,7 @@ import 'package:best_flutter_ui_templates/hotel_booking/hotel_list_view.dart';
 import 'package:best_flutter_ui_templates/hotel_booking/model/hotel_list_data.dart';
 import 'package:best_flutter_ui_templates/model/labo_model.dart';
 import 'package:best_flutter_ui_templates/provider/my_provider.dart';
+import 'package:best_flutter_ui_templates/view/search_view.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -26,6 +27,8 @@ class _HotelHomeScreenState extends State<HotelHomeScreen>
   DateTime startDate = DateTime.now();
   DateTime endDate = DateTime.now().add(const Duration(days: 5));
 
+    GlobalKey<FormState> globalKey= GlobalKey<FormState>();
+        TextEditingController _searchControllr=TextEditingController();
   @override
   void initState() {
     animationController = AnimationController(
@@ -81,7 +84,7 @@ int index=0;
                                   (BuildContext context, int index) {
                                 return Column(
                                   children: <Widget>[
-                                    getSearchBarUI(),
+                                    getSearchBarUI(myProvider),
                                     getTimeDateUI(),
                                   ],
                                 );
@@ -120,73 +123,7 @@ int index=0;
                                 laboModel: laboData[index],
                                 animation: animation,
                                 animationController: animationController,
-                              );Container(
-      decoration: BoxDecoration(
-        color: HotelAppTheme.buildLightTheme().backgroundColor,
-        boxShadow: <BoxShadow>[
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              offset: const Offset(0, -2),
-              blurRadius: 8.0),
-        ],
-      ),
-      child: Column(
-        children: <Widget>[
-          Container(
-            height: MediaQuery.of(context).size.height - 156 - 50,
-            child: FutureBuilder<bool>(
-              future: getData(),
-              builder: (BuildContext context, AsyncSnapshot<bool> snapshot) {
-                if (!snapshot.hasData) {
-                  return const SizedBox();
-                } else {
-                  return StreamBuilder<QuerySnapshot>(
-          stream:labo.snapshots() ,
-          builder: (context, AsyncSnapshot<QuerySnapshot> snapshot){
-              if( (snapshot.hasError)) {
-                  return Container();
-                }
-            
-              if(!snapshot.hasData){
-                return Container();
-              }
-              if(snapshot.hasData){
-                      final List<DocumentSnapshot> documents=snapshot.data.docs;
-                return ListView(
-                  
-                  children:documents.map((doc) {
-                    index++;
-                    final int count =
-                          hotelList.length > 10 ? 10 : hotelList.length;
-                      final Animation<double> animation =
-                          Tween<double>(begin: 0.0, end: 1.0).animate(
-                              CurvedAnimation(
-                                  parent: animationController,
-                                  curve: Interval((1 / count) * index, 1.0,
-                                      curve: Curves.fastOutSlowIn)));
-                                animationController.forward();
-                              return  HotelListView(
-                                onTapDelete: (){
-                                  FocusScope.of(context).requestFocus(FocusNode());
-                                               myProvider.deleteItem(doc.id);
-                                               myProvider.getListLaboFromFirebase(); 
-                                      },
-                                      callback: () {},
-                                    // hotelData: hotelList[index],
-                                      animation: animation,
-                                      animationController: animationController,
-                                    );
-                        } ).toList() ,
-               ); }
-          },
-        );
-                }
-              },
-            ),
-          )
-        ],
-      ),
-    );
+                              );
                             },
                           ),
                         ),
@@ -420,77 +357,91 @@ int index=0;
     );
   }
 
-  Widget getSearchBarUI() {
+  Widget getSearchBarUI(MyProvider myProvider) {
+            String _search=_searchControllr.text;
+
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-      child: Row(
-        children: <Widget>[
-          Expanded(
-            child: Padding(
-              padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
-              child: Container(
-                decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().backgroundColor,
-                  borderRadius: const BorderRadius.all(
-                    Radius.circular(38.0),
-                  ),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                        color: Colors.grey.withOpacity(0.2),
-                        offset: const Offset(0, 2),
-                        blurRadius: 8.0),
-                  ],
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 4, bottom: 4),
-                  child: TextField(
-                    onChanged: (String txt) {},
-                    style: const TextStyle(
-                      fontSize: 18,
+      child: Form(
+        key:globalKey ,
+              child: Row(
+          children: <Widget>[
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: HotelAppTheme.buildLightTheme().backgroundColor,
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(38.0),
                     ),
-                    cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Search...',
-                    ),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                          color: Colors.grey.withOpacity(0.2),
+                          offset: const Offset(0, 2),
+                          blurRadius: 8.0),
+                    ],
                   ),
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 4, bottom: 4),
+                    child: TextFormField(
+                        controller: _searchControllr,
+                       
+                        obscureText:false, 
+                        style: const TextStyle(
+                          fontSize: 18,
+                        ),
+                        cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          hintText: 'Search City',
+                        ),
+                      ),
+                    ),
+                  
                 ),
               ),
             ),
-          ),
-          Container(
-            decoration: BoxDecoration(
-              color: HotelAppTheme.buildLightTheme().primaryColor,
-              borderRadius: const BorderRadius.all(
-                Radius.circular(38.0),
-              ),
-              boxShadow: <BoxShadow>[
-                BoxShadow(
-                    color: Colors.grey.withOpacity(0.4),
-                    offset: const Offset(0, 2),
-                    blurRadius: 8.0),
-              ],
-            ),
-            child: Material(
-              color: Colors.transparent,
-              child: InkWell(
+            Container(
+              decoration: BoxDecoration(
+                color: HotelAppTheme.buildLightTheme().primaryColor,
                 borderRadius: const BorderRadius.all(
-                  Radius.circular(32.0),
+                  Radius.circular(38.0),
                 ),
-                onTap: () {
-                  FocusScope.of(context).requestFocus(FocusNode());
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Icon(FontAwesomeIcons.search,
-                      size: 20,
-                      color: HotelAppTheme.buildLightTheme().backgroundColor),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.4),
+                      offset: const Offset(0, 2),
+                      blurRadius: 8.0),
+                ],
+              ),
+              child: Material(
+                color: Colors.transparent,
+                child: InkWell(
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(32.0),
+                  ),
+                  onTap: () {
+                    FocusScope.of(context).requestFocus(FocusNode());
+                  
+                    Navigator.push(context, 
+                            MaterialPageRoute(builder: (context)=>
+                                SearchView(city:_searchControllr.text)
+                                  )
+                                  );
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Icon(FontAwesomeIcons.search,
+                        size: 20,
+                        color: HotelAppTheme.buildLightTheme().backgroundColor),
+                  ),
                 ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
