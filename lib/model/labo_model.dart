@@ -4,8 +4,9 @@ class LaboModel{
   String image;
   num rating;
   //geopoint location:
+  String ville;
 
-  LaboModel({this.id,this.name,this.image,this.rating});
+  LaboModel({this.id,this.name,this.image,this.rating,this.ville});
 
 
 }
