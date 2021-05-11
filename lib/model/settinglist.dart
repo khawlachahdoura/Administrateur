@@ -19,20 +19,20 @@ class SettingsList {
 
   static List<SettingsList> settingsList = [
     SettingsList(
-      imagePath: "assets/images/Change_Language",
+      imagePath: "assets/images/Change_Language.png",
       text: "Settings",
 
       navigateScreen: SettingsProfile(),
     ),
     SettingsList(
-      imagePath: "assets/images/Change_Language",
+      imagePath: "assets/images/Change_Language.png",
       text: "Show profile",
 
        navigateScreen: SettingsProfile(),
     ),
     SettingsList(
       text: "Language",
-      imagePath: "assets/images/Change_Language",
+      imagePath: "assets/images/Change_Language.png",
        navigateScreen: SettingsProfile(),
     ),
   ];
