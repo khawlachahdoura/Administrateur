@@ -28,27 +28,18 @@ class _HomeDrawerState extends State<HomeDrawer> {
         icon: Icon(Icons.home),
       ),
       DrawerList(
-        index: DrawerIndex.Help,
-        labelName: 'Help',
+        index: DrawerIndex.Labo,
+        labelName: 'Laboratoire',
         isAssetsImage: true,
-        imageName: 'assets/images/supportIcon.png',
+        icon: Icon(Icons.add_business),
       ),
       DrawerList(
-        index: DrawerIndex.FeedBack,
-        labelName: 'FeedBack',
-        icon: Icon(Icons.help),
+        index: DrawerIndex.Patient,
+        labelName: 'Patient',
+        icon: Icon(Icons.supervisor_account),
       ),
 
-      DrawerList(
-        index: DrawerIndex.Share,
-        labelName: 'Rate the app',
-        icon: Icon(Icons.share),
-      ),
-      DrawerList(
-        index: DrawerIndex.About,
-        labelName: 'About Us',
-        icon: Icon(Icons.info),
-      ),
+
       DrawerList(
         index: DrawerIndex.About,
         labelName: 'Settings',
@@ -268,8 +259,8 @@ class _HomeDrawerState extends State<HomeDrawer> {
 
 enum DrawerIndex {
   HOME,
-  FeedBack,
-  Help,
+  Patient,
+  Labo,
   Share,
   About,
   Invite,
@@ -291,3 +282,30 @@ class DrawerList {
   String imageName;
   DrawerIndex index;
 }
+
+
+
+/*
+  DrawerList(
+        index: DrawerIndex.Help,
+        labelName: 'Help',
+        isAssetsImage: true,
+        imageName: 'assets/images/supportIcon.png',
+      ),
+      DrawerList(
+        index: DrawerIndex.FeedBack,
+        labelName: 'FeedBack',
+        icon: Icon(Icons.help),
+      ),
+
+      DrawerList(
+        index: DrawerIndex.Share,
+        labelName: 'Rate the app',
+        icon: Icon(Icons.share),
+      ),
+      DrawerList(
+        index: DrawerIndex.About,
+        labelName: 'About Us',
+        icon: Icon(Icons.info),
+      ),
+ */

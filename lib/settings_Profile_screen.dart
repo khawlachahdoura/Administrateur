@@ -1,19 +1,19 @@
 import 'package:best_flutter_ui_templates/app_theme.dart';
-import 'package:best_flutter_ui_templates/model/labo_model.dart';
-import 'package:best_flutter_ui_templates/provider/my_provider.dart';
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'model/homelist.dart';
+import 'package:best_flutter_ui_templates/home_screen.dart';
+  import 'package:flutter/material.dart';
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key key}) : super(key: key);
+ import 'model/settinglist.dart';
+
+
+class SettingsProfile extends StatefulWidget {
+  const SettingsProfile({Key key}) : super(key: key);
 
   @override
-  _MyHomePageState createState() => _MyHomePageState();
+  _SettingsProfileState createState() => _SettingsProfileState();
 }
 
-class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
-  List<HomeList> homeList = HomeList.homeList;
+class _SettingsProfileState extends State<SettingsProfile> with TickerProviderStateMixin {
+  List<SettingsList> settingsList = SettingsList.settingsList;
   AnimationController animationController;
   bool multiple = true;
 
@@ -37,10 +37,8 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
 
   @override
   Widget build(BuildContext context) {
-    
-    MyProvider myProvider=Provider.of<MyProvider>(context);
-    myProvider.getListLaboFromFirebase();
-    List<LaboModel> listLabo=myProvider.listLabo;
+
+
     return Scaffold(
       backgroundColor: AppTheme.white,
       body: FutureBuilder<bool>(
@@ -70,11 +68,11 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                             physics: const BouncingScrollPhysics(),
                             scrollDirection: Axis.vertical,
                             children: List<Widget>.generate(
-                              homeList.length,
-                              (int index) {
-                                final int count = homeList.length;
+                              settingsList.length,
+                                  (int index) {
+                                final int count = settingsList.length;
                                 final Animation<double> animation =
-                                    Tween<double>(begin: 0.0, end: 1.0).animate(
+                                Tween<double>(begin: 0.0, end: 1.0).animate(
                                   CurvedAnimation(
                                     parent: animationController,
                                     curve: Interval((1 / count) * index, 1.0,
@@ -82,16 +80,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                                   ),
                                 );
                                 animationController.forward();
-                                return HomeListView(
+                                return SettingsListView(
                                   animation: animation,
                                   animationController: animationController,
-                                  listData: homeList[index],
+                                  listData: settingsList[index],
                                   callBack: () {
                                     Navigator.push<dynamic>(
                                       context,
                                       MaterialPageRoute<dynamic>(
                                         builder: (BuildContext context) =>
-                                            homeList[index].navigateScreen,
+                                        settingsList[index].navigateScreen,
                                       ),
                                     );
                                   },
@@ -99,7 +97,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                               },
                             ),
                             gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
+                            SliverGridDelegateWithFixedCrossAxisCount(
                               crossAxisCount: multiple ? 2 : 1,
                               mainAxisSpacing: 12.0,
                               crossAxisSpacing: 12.0,
@@ -143,7 +141,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
               child: Padding(
                 padding: const EdgeInsets.only(top: 4),
                 child: Text(
-                  'Home',
+                  'Settings',
                   style: TextStyle(
                     fontSize: 22,
                     color: AppTheme.darkText,
@@ -164,7 +162,7 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
                 color: Colors.transparent,
                 child: InkWell(
                   borderRadius:
-                      BorderRadius.circular(AppBar().preferredSize.height),
+                  BorderRadius.circular(AppBar().preferredSize.height),
                   child: Icon(
                     multiple ? Icons.dashboard : Icons.view_agenda,
                     color: AppTheme.dark_grey,
@@ -184,16 +182,16 @@ class _MyHomePageState extends State<MyHomePage> with TickerProviderStateMixin {
   }
 }
 
-class HomeListView extends StatelessWidget {
-  const HomeListView(
+class SettingsListView extends StatelessWidget {
+  const SettingsListView(
       {Key key,
-      this.listData,
-      this.callBack,
-      this.animationController,
-      this.animation})
+        this.listData,
+        this.callBack,
+        this.animationController,
+        this.animation})
       : super(key: key);
 
-  final HomeList listData;
+  final SettingsList listData;
   final VoidCallback callBack;
   final AnimationController animationController;
   final Animation<dynamic> animation;
@@ -215,16 +213,21 @@ class HomeListView extends StatelessWidget {
                 child: Stack(
                   alignment: AlignmentDirectional.center,
                   children: <Widget>[
+
                     Image.asset(
                       listData.imagePath,
-                      fit: BoxFit.cover,
+                      fit: BoxFit.contain,
+                    ),
+                    Text(
+                      listData.text,
+
                     ),
                     Material(
                       color: Colors.transparent,
                       child: InkWell(
                         splashColor: Colors.grey.withOpacity(0.2),
                         borderRadius:
-                            const BorderRadius.all(Radius.circular(4.0)),
+                        const BorderRadius.all(Radius.circular(4.0)),
                         onTap: () {
                           callBack();
                         },
