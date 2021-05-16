@@ -8,15 +8,17 @@ class provider_add {
   String name;
   String image;
   String adress;
+  String ville;
   num rating;
 
   Future setUserData() async {
 
-    return FirebaseFirestore.instance.collection('usersData').doc().set({
+    return FirebaseFirestore.instance.collection('labo').doc().set({
       'id':id,
       'name':name,
       'image': image,
       'adress': adress,
+      'ville': ville,
       'rating':rating
     });
   }

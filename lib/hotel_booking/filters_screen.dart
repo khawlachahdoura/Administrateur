@@ -1,5 +1,8 @@
+import 'package:best_flutter_ui_templates/provider/provider_add.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'range_slider_view.dart';
 import 'slider_view.dart';
 import 'hotel_app_theme.dart';
@@ -21,6 +24,10 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   @override
   Widget build(BuildContext context) {
+    provider_add myProvider=Provider.of<provider_add>(context);
+    myProvider.setUserData();
+    CollectionReference labo= FirebaseFirestore.instance.collection('labo');
+
     return Container(
       color: HotelAppTheme.buildLightTheme().backgroundColor,
       child: Scaffold(
