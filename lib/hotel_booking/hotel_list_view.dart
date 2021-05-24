@@ -65,8 +65,8 @@ class HotelListView extends StatelessWidget {
                               
                                 decoration: new BoxDecoration(
                                   image: new DecorationImage(
-                                    image: new NetworkImage(
-                                        laboModel.image),
+                                    image: AssetImage("assets/labo.jpg"),
+
                                     fit: BoxFit.cover,
                                   ),
                                 )),
@@ -159,7 +159,7 @@ class HotelListView extends StatelessWidget {
                                 padding: const EdgeInsets.all(3.0),
                                 child: Container(
                                   decoration: BoxDecoration(
-                                      color: HotelAppTheme.buildLightTheme().primaryColor,
+                                      color: Colors.white,
                                       borderRadius: const BorderRadius.all(
                                         Radius.circular(20.0),
                                       ),

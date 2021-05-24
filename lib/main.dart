@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:best_flutter_ui_templates/app_theme.dart';
 import 'package:best_flutter_ui_templates/provider/my_provider.dart';
+import 'package:best_flutter_ui_templates/provider/provider_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,7 +13,6 @@ import 'package:firebase_core/firebase_core.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
- final firestoreInstance = FirebaseFirestore.instance;
 
   await SystemChrome.setPreferredOrientations(<DeviceOrientation>[DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
       .then((_) => runApp(MyApp()));
@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
          ChangeNotifierProvider(create: (_) =>MyProvider()),
+        ChangeNotifierProvider(create: (_) =>provider_add()),
       ],
           child: MaterialApp(
         title: 'Flutter UI',

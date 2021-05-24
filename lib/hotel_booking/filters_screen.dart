@@ -1,3 +1,4 @@
+import 'package:best_flutter_ui_templates/provider/my_provider.dart';
 import 'package:best_flutter_ui_templates/provider/provider_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
@@ -21,122 +22,118 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
   RangeValues _values = const RangeValues(100, 600);
   double distValue = 10.0;
+  var _formkey=GlobalKey<FormState>();
 
+  TextEditingController _nameCnotroller=TextEditingController();
+  TextEditingController _numlabCnotroller=TextEditingController();
+  TextEditingController _adresslabCnotroller=TextEditingController();
+  TextEditingController _citylabCnotroller=TextEditingController();
+  TextEditingController _imageCnotroller=TextEditingController();
+String error;
   @override
   Widget build(BuildContext context) {
     provider_add myProvider=Provider.of<provider_add>(context);
-    myProvider.setUserData();
-    CollectionReference labo= FirebaseFirestore.instance.collection('labo');
+    MyProvider myProvider2=Provider.of<MyProvider>(context);
 
+    CollectionReference labo= FirebaseFirestore.instance.collection('labo');
+   // TextEditingController _ratingCnotroller=TextEditingController();
     return Container(
       color: HotelAppTheme.buildLightTheme().backgroundColor,
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Column(
-          children: <Widget>[
-            getAppBarUI(),
-            Expanded(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: <Widget>[
-                    nameLabo(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    numLabo(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    villeLabo(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    adressLabo(),
-                    const Divider(
-                      height: 1,
-                    ),
+        body: Form(
+          key: _formkey,
+          child: Column(
+            children: <Widget>[
+              getAppBarUI(),
+              Expanded(
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: <Widget>[
+                      nameLabo(_nameCnotroller),
+                      const Divider(
+                        height: 1,
+                      ),
+                      numLabo( _numlabCnotroller),
+                      const Divider(
+                        height: 1,
+                      ),
+                      villeLabo(_citylabCnotroller),
+                      const Divider(
+                        height: 1,
+                      ),
+                      adressLabo(_adresslabCnotroller),
+                      const Divider(
+                        height: 1,
+                      ),
+                      image(),
+                      const Divider(
+                        height: 1,
+                      ),
 
-                    distanceViewUI(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    priceBarFilter(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    getFilterBarUI(),
-                    const Divider(
-                      height: 1,
-                    ),
-                    allAccommodationUI()
-                  ],
+                      distanceViewUI(),
+                      const Divider(
+                        height: 1,
+                      ),
+                      priceBarFilter(),
+                      const Divider(
+                        height: 1,
+                      ),
+
+                      allAccommodationUI()
+                    ],
+                  ),
                 ),
               ),
-            ),
-            const Divider(
-              height: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, bottom: 16, top: 8),
-              child: Container(
-                height: 48,
-                decoration: BoxDecoration(
-                  color: HotelAppTheme.buildLightTheme().primaryColor,
-                  borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Colors.grey.withOpacity(0.6),
-                      blurRadius: 8,
-                      offset: const Offset(4, 4),
-                    ),
-                  ],
-                ),
-                child: Material(
-                  color: Colors.transparent,
-                  child: InkWell(
+              const Divider(
+                height: 1,
+              ),
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, bottom: 16, top: 8),
+                child: Container(
+                  height: 48,
+                  decoration: BoxDecoration(
+                    color: HotelAppTheme.buildLightTheme().primaryColor,
                     borderRadius: const BorderRadius.all(Radius.circular(24.0)),
-                    highlightColor: Colors.transparent,
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Center(
-                      child: Text(
-                        'Add',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                            color: Colors.white),
+                    boxShadow: <BoxShadow>[
+                      BoxShadow(
+                        color: Colors.grey.withOpacity(0.6),
+                        blurRadius: 8,
+                        offset: const Offset(4, 4),
+                      ),
+                    ],
+                  ),
+                  child: Material(
+                    color: Colors.transparent,
+                    child: InkWell(
+                      borderRadius: const BorderRadius.all(Radius.circular(24.0)),
+                      highlightColor: Colors.transparent,
+                      onTap: () {
+                        myProvider.setUserData(_nameCnotroller.text,_adresslabCnotroller.text,_citylabCnotroller.text,int.parse(_numlabCnotroller.text));
+
+                        Navigator.pop(context);
+                        myProvider2.getListLaboFromFirebase();
+                      },
+                      child: Center(
+                        child: Text(
+                          'Add',
+                          style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                              color: Colors.white),
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            )
-          ],
+              )
+            ],
+          ),
         ),
       ),
     );
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -224,8 +221,6 @@ class _FiltersScreenState extends State<FiltersScreen> {
     }
     return noList;
   }
-
-
 
   void checkAppPosition(int index) {
     if (index == 0) {
@@ -482,7 +477,7 @@ class _FiltersScreenState extends State<FiltersScreen> {
 
 
 
-  Widget nameLabo() {
+  Widget nameLabo(TextEditingController _nameCnotroller) {
     return Padding(
       padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
       child: Row(
@@ -506,7 +501,11 @@ class _FiltersScreenState extends State<FiltersScreen> {
                 child: Padding(
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 4, bottom: 4),
-                  child: TextField(
+
+
+
+                    child: TextFormField(
+                      controller: _nameCnotroller,
                     onChanged: (String txt) {},
                     style: const TextStyle(
                       fontSize: 18,
@@ -516,18 +515,18 @@ class _FiltersScreenState extends State<FiltersScreen> {
                       border: InputBorder.none,
                       hintText: 'Enter lab name',
                     ),
-                  ),
+                  )),
                 ),
               ),
             ),
-          ),
 
         ],
       ),
     );
   }
 }
-Widget numLabo() {
+Widget numLabo(TextEditingController _numlabCnotroller) {
+
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
     child: Row(
@@ -551,7 +550,9 @@ Widget numLabo() {
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 4, bottom: 4),
-                child: TextField(
+
+                child: TextFormField(
+                   controller: _numlabCnotroller,
                   onChanged: (String txt) {},
                   style: const TextStyle(
                     fontSize: 18,
@@ -561,18 +562,19 @@ Widget numLabo() {
                     border: InputBorder.none,
                     hintText: 'Enter lab phone number',
                   ),
-                ),
+                )),
               ),
             ),
           ),
-        ),
+
 
       ],
     ),
   );
 }
 
-Widget adressLabo() {
+Widget adressLabo(TextEditingController _adresslabCnotroller) {
+
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
     child: Row(
@@ -596,7 +598,9 @@ Widget adressLabo() {
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 4, bottom: 4),
-                child: TextField(
+
+                child: TextFormField(
+                  controller: _adresslabCnotroller,
                   onChanged: (String txt) {},
                   style: const TextStyle(
                     fontSize: 18,
@@ -606,17 +610,18 @@ Widget adressLabo() {
                     border: InputBorder.none,
                     hintText: 'Enter lab adress',
                   ),
-                ),
+                )),
               ),
             ),
           ),
-        ),
+
 
       ],
     ),
   );
 }
-Widget villeLabo() {
+Widget villeLabo(TextEditingController _citylabCnotroller) {
+
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
     child: Row(
@@ -640,7 +645,9 @@ Widget villeLabo() {
               child: Padding(
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 4, bottom: 4),
-                child: TextField(
+
+                child: TextFormField(
+                  controller: _citylabCnotroller,
                   onChanged: (String txt) {},
                   style: const TextStyle(
                     fontSize: 18,
@@ -650,11 +657,57 @@ Widget villeLabo() {
                     border: InputBorder.none,
                     hintText: 'Enter lab city',
                   ),
-                ),
+                )),
               ),
             ),
           ),
-        ),
+
+      ],
+    ),
+  );
+}
+
+Widget image() {
+
+  return Padding(
+    padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+    child: Row(
+      children: <Widget>[
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(right: 16, top: 8, bottom: 8),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.black12,
+                borderRadius: const BorderRadius.all(
+                  Radius.circular(38.0),
+                ),
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                      color: Colors.grey.withOpacity(0.2),
+                      offset: const Offset(0, 2),
+                      blurRadius: 8.0),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 4, bottom: 4),
+
+                child: TextFormField(
+                  onChanged: (String txt) {},
+                  style: const TextStyle(
+                    fontSize: 18,
+                  ),
+                  cursorColor: HotelAppTheme.buildLightTheme().primaryColor,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Enter image',
+
+                  ),
+                )),
+              ),
+            ),
+          ),
 
       ],
     ),

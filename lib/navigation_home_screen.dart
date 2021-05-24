@@ -4,8 +4,12 @@ import 'package:best_flutter_ui_templates/custom_drawer/home_drawer.dart';
 import 'package:best_flutter_ui_templates/feedback_screen.dart';
 import 'package:best_flutter_ui_templates/help_screen.dart';
 import 'package:best_flutter_ui_templates/home_screen.dart';
-import 'package:best_flutter_ui_templates/invite_friend_screen.dart';
+import 'package:best_flutter_ui_templates/settings_Profile_screen.dart';
 import 'package:flutter/material.dart';
+
+import 'design_course/home_design_course.dart';
+import 'fitness_app/fitness_app_home_screen.dart';
+import 'hotel_booking/hotel_home_screen.dart';
 
 class NavigationHomeScreen extends StatefulWidget {
   @override
@@ -54,20 +58,19 @@ class _NavigationHomeScreenState extends State<NavigationHomeScreen> {
         setState(() {
           screenView = const MyHomePage();
         });
-      } else if (drawerIndex == DrawerIndex.Help) {
+      } else if (drawerIndex == DrawerIndex.About) {
         setState(() {
-          screenView = HelpScreen();
+          screenView = SettingsProfile();
         });
-      } else if (drawerIndex == DrawerIndex.FeedBack) {
+      }else if (drawerIndex == DrawerIndex.Labo) {
         setState(() {
-          screenView = FeedbackScreen();
+          screenView = HotelHomeScreen();
         });
-      } else if (drawerIndex == DrawerIndex.Invite) {
+      }
+      else if (drawerIndex == DrawerIndex.Patient) {
         setState(() {
-          screenView = InviteFriend();
+          screenView = FitnessAppHomeScreen();
         });
-      } else {
-        //do in your way......
       }
     }
   }
