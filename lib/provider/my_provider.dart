@@ -35,6 +35,13 @@ LaboModel laboModelLst;
     .where('ville',isEqualTo:city.toLowerCase())
     .get()
     ;
+   if(querySnapshot.docs.isEmpty){
+      querySnapshot= await FirebaseFirestore.instance
+          .collection('labo')
+          .where('name',isEqualTo:city.toLowerCase())
+          .get()
+          ;
+   } 
     querySnapshot.docs.forEach((doc) {
       laboModelLst= LaboModel(
         id: doc.id,
