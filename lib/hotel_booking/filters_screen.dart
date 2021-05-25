@@ -620,7 +620,9 @@ Widget adressLabo(TextEditingController _adresslabCnotroller) {
     ),
   );
 }
+
 Widget villeLabo(TextEditingController _citylabCnotroller) {
+
 
   return Padding(
     padding: const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
