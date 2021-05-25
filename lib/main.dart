@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:best_flutter_ui_templates/app_theme.dart';
 import 'package:best_flutter_ui_templates/provider/my_provider.dart';
+import 'package:best_flutter_ui_templates/provider/provider_add.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,6 +32,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
          ChangeNotifierProvider(create: (_) =>MyProvider()),
+        ChangeNotifierProvider(create: (_) =>provider_add()),
       ],
           child: MaterialApp(
         title: 'Flutter UI',

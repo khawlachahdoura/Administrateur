@@ -65,8 +65,8 @@ class HotelListView extends StatelessWidget {
                               
                                 decoration: new BoxDecoration(
                                   image: new DecorationImage(
-                                    image: new NetworkImage(
-                                        laboModel.image),
+                                    image: AssetImage("assets/labo.jpg"),
+
                                     fit: BoxFit.cover,
                                   ),
                                 )),
